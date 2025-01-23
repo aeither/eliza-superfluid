@@ -10,7 +10,6 @@
 		"stop:service:all": "pm2 stop all"
 	},
 	"dependencies": {
-		"@ai16z/eliza": "^0.1.6",
 		"@elizaos/adapter-postgres": "0.1.7",
 		"@elizaos/adapter-sqlite": "0.1.7",
 		"@elizaos/client-auto": "0.1.7",
@@ -24,9 +23,11 @@
 		"@elizaos/plugin-node": "0.1.7",
 		"@elizaos/plugin-solana": "0.1.7",
 		"@elizaos/plugin-starknet": "0.1.7",
+		"@opendocsg/pdf2md": "^0.2.1",
 		"@tavily/core": "0.0.2",
 		"amqplib": "0.10.5",
 		"better-sqlite3": "11.5.0",
+		"dotenv": "^16.4.7",
 		"fs": "0.0.1-security",
 		"llamaindex": "^0.8.31",
 		"net": "1.0.2",

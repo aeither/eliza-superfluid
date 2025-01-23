@@ -1,9 +1,9 @@
-import fs from "node:fs/promises";
-import path from "node:path";
 import {
   Document,
   VectorStoreIndex,
 } from "llamaindex";
+import fs from "node:fs/promises";
+import path from "node:path";
 
 // Function to get all markdown files from the given directory (and subdirectories)
 async function getMarkdownFiles(dir: string): Promise<string[]> {
@@ -47,6 +47,7 @@ export async function createKnowledgeBase(directoryPath: string) {
 
 
 // Function to query the knowledge base
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export async function queryKnowledgeBase(queryEngine, query: any) {
   const { response, sourceNodes } = await queryEngine.query({
     query,

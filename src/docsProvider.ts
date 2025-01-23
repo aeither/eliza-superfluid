@@ -1,4 +1,4 @@
-import type { IAgentRuntime, Memory, Provider, State } from "@ai16z/eliza";
+import type { IAgentRuntime, Memory, Provider, State } from "@elizaos/core";
 import { MetadataMode } from "llamaindex";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,7 +14,7 @@ const docsProvider: Provider = {
             const userQuery = message.content.text;
 
             // Create the knowledge base (index) from markdown files in the knowledgeBase folder
-            const directoryPath = path.join(__dirname, '../../agent/src/docs'); // Adjust path as needed
+            const directoryPath = path.join(__dirname, '../../src/docs'); // Adjust path as needed
             console.log("Resolved Docs Path:", directoryPath);
             const queryEngine = await createKnowledgeBase(directoryPath);
 
