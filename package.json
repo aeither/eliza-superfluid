@@ -10,6 +10,7 @@
 		"stop:service:all": "pm2 stop all"
 	},
 	"dependencies": {
+		"@ai16z/eliza": "^0.1.6",
 		"@elizaos/adapter-postgres": "0.1.7",
 		"@elizaos/adapter-sqlite": "0.1.7",
 		"@elizaos/client-auto": "0.1.7",
@@ -27,6 +28,7 @@
 		"amqplib": "0.10.5",
 		"better-sqlite3": "11.5.0",
 		"fs": "0.0.1-security",
+		"llamaindex": "^0.8.31",
 		"net": "1.0.2",
 		"opusscript": "^0.1.1",
 		"path": "0.12.7",

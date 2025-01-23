@@ -1,10 +1,10 @@
 import { DirectClient } from "@elizaos/client-direct";
 import {
   AgentRuntime,
+  type Character,
   elizaLogger,
   settings,
   stringToUuid,
-  type Character,
 } from "@elizaos/core";
 import { bootstrapPlugin } from "@elizaos/plugin-bootstrap";
 import { createNodePlugin } from "@elizaos/plugin-node";
@@ -23,11 +23,12 @@ import {
   parseArguments,
 } from "./config/index.ts";
 import { initializeDatabase } from "./database/index.ts";
+import { docsProvider } from "./docsProvider.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const wait = (minTime: number = 1000, maxTime: number = 3000) => {
+export const wait = (minTime = 1000, maxTime = 3000) => {
   const waitTime =
     Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
   return new Promise((resolve) => setTimeout(resolve, waitTime));
@@ -60,7 +61,7 @@ export function createAgent(
       nodePlugin,
       character.settings?.secrets?.WALLET_PUBLIC_KEY ? solanaPlugin : null,
     ].filter(Boolean),
-    providers: [],
+    providers: [docsProvider],
     actions: [],
     services: [],
     managers: [],
@@ -128,10 +129,10 @@ const checkPortAvailable = (port: number): Promise<boolean> => {
 
 const startAgents = async () => {
   const directClient = new DirectClient();
-  let serverPort = parseInt(settings.SERVER_PORT || "3000");
+  let serverPort = Number.parseInt(settings.SERVER_PORT || "3000");
   const args = parseArguments();
 
-  let charactersArg = args.characters || args.character;
+  const charactersArg = args.characters || args.character;
   let characters = [character];
 
   console.log("charactersArg", charactersArg);
@@ -160,7 +161,7 @@ const startAgents = async () => {
 
   directClient.start(serverPort);
 
-  if (serverPort !== parseInt(settings.SERVER_PORT || "3000")) {
+  if (serverPort !== Number.parseInt(settings.SERVER_PORT || "3000")) {
     elizaLogger.log(`Server started on alternate port ${serverPort}`);
   }
 
