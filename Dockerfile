@@ -4,12 +4,19 @@ FROM node:23.3.0-slim AS builder
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
     apt-get update && \
-    apt-get install -y git python3 make g++ && \
+    apt-get install -y git python3 make g++ curl unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Set Python 3 as the default python
 RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# Install SQLite vector extension for arm64
+RUN curl -L https://github.com/asg017/sqlite-vss/releases/download/v0.1.2/sqlite-vss-linux-aarch64.tar.gz -o sqlite-vss.tar.gz && \
+    tar -xvf sqlite-vss.tar.gz && \
+    mkdir -p /usr/local/lib/sqlite-extensions && \
+    mv libsqlite_vss0.so /usr/local/lib/sqlite-extensions/ && \
+    rm sqlite-vss.tar.gz
 
 # Set the working directory
 WORKDIR /app
@@ -41,7 +48,7 @@ FROM node:23.3.0-slim
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.15.1
 RUN apt-get update && \
-    apt-get install -y git python3 && \
+    apt-get install -y git python3 curl unzip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
