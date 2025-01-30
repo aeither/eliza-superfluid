@@ -4,7 +4,7 @@ export const character: Character = {
     ...defaultCharacter,
     name: "SuperfluidAgent",
     plugins: [],
-    clients: [Clients.DISCORD],
+    clients: [Clients.DISCORD, Clients.DIRECT],
     modelProvider: ModelProviderName.OPENROUTER,
     settings: {
         secrets: {},
