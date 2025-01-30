@@ -9,7 +9,6 @@ services:
         volumes:
             - ./data:/app/data
         environment:
-            - SQLITE_EXTENSIONS_PATH=/usr/local/lib/sqlite-extensions
             - OPENROUTER_API_KEY=
             - ELEVENLABS_XI_API_KEY=
             - ELEVENLABS_MODEL_ID=eleven_multilingual_v2
