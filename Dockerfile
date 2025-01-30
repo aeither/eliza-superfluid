@@ -4,7 +4,7 @@ FROM node:23.3.0-slim AS builder
 # Install pnpm globally and install necessary build tools
 RUN npm install -g pnpm@9.15.1 && \
     apt-get update && \
-    apt-get install -y git python3 make g++ && \
+    apt-get install -y git python3 make g++ curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -41,7 +41,7 @@ FROM node:23.3.0-slim
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.15.1
 RUN apt-get update && \
-    apt-get install -y git python3 && \
+    apt-get install -y git python3 curl sqlite3 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -51,6 +51,14 @@ RUN curl -L https://github.com/asg017/sqlite-vss/releases/download/v0.1.2/sqlite
     mkdir -p /usr/local/lib/sqlite-extensions && \
     mv libsqlite_vss0.so /usr/local/lib/sqlite-extensions/ && \
     rm sqlite-vss.tar.gz
+
+# Install sqlite-vec extension
+RUN git clone https://github.com/asg017/sqlite-vec.git && \
+    cd sqlite-vec && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf sqlite-vec
 
 WORKDIR /app
 
@@ -62,6 +70,9 @@ COPY --from=builder /app/characters /app/characters
 COPY --from=builder /app/dist /app/dist
 COPY --from=builder /app/tsconfig.json /app/
 COPY --from=builder /app/pnpm-lock.yaml /app/
+
+# Set environment variable for SQLite extensions
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib/sqlite-extensions:$LD_LIBRARY_PATH
 
 EXPOSE 3000
 # Set the command to run the application

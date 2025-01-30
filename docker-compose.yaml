@@ -24,6 +24,7 @@ services:
             - SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
             - HELIUS_API_KEY=
             - SERVER_PORT=3000
+            - LD_LIBRARY_PATH=/usr/local/lib/sqlite-extensions:$LD_LIBRARY_PATH
         ports:
             - "9500:3000"
         restart: always
