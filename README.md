@@ -1,90 +1,77 @@
 # Eliza
 
-## Edit the character files
+## Configure Character
 
-Open `src/character.ts` to modify the default character. Uncomment and edit.
+### Edit Default Character
+Open `src/character.ts` to modify the default character. Uncomment and edit as needed.
 
-### Custom characters
-
-To load custom characters instead:
+### Load Custom Characters
 - Use `pnpm start --characters="characters/eliza.character.json"`
-- Multiple character files can be loaded simultaneously
+- Load multiple character files simultaneously
 
-### Add clients
+### Add Clients
+```typescript
+// In character.ts
+clients: [Clients.TWITTER, Clients.DISCORD];
+
+// In character.json
+"clients": ["twitter", "discord"]
 ```
-# in character.ts
-clients: [Clients.TWITTER, Clients.DISCORD],
 
-# in character.json
-clients: ["twitter", "discord"]
-```
+## Environment Setup
 
-## Duplicate the .env.example template
-
+### Create .env File
 ```bash
 cp .env.example .env
 ```
+Fill out the .env file with your specific values.
 
-\* Fill out the .env file with your own values.
-
-### Add login credentials and keys to .env
-```
-DISCORD_APPLICATION_ID="discord-application-id"
-DISCORD_API_TOKEN="discord-api-token"
-...
-OPENROUTER_API_KEY="sk-xx-xx-xxx"
-...
-TWITTER_USERNAME="username"
-TWITTER_PASSWORD="password"
-TWITTER_EMAIL="your@email.com"
+### Add Credentials and API Keys
+```plaintext
+DISCORD_APPLICATION_ID="your-discord-app-id"
+DISCORD_API_TOKEN="your-discord-token"
+OPENROUTER_API_KEY="your-openrouter-key"
+TWITTER_USERNAME="your-twitter-username"
+TWITTER_PASSWORD="your-twitter-password"
+TWITTER_EMAIL="your-twitter-email"
 ```
 
-## Install dependencies and start your agent
+## Installation and Execution
 
+### Install Dependencies and Start Agent
 ```bash
 pnpm i && pnpm start
 ```
-Note: this requires node to be at least version 22 when you install packages and run the agent.
+Note: Requires Node.js version 22 or higher.
 
-## Run with Docker
+## Docker Deployment
 
-### Build and run Docker Compose (For x86_64 architecture)
+### For x86_64 Architecture
+1. Edit docker-compose.yaml:
+   ```yaml
+   services:
+     eliza:
+       environment:
+         - OPENROUTER_API_KEY=your-api-key-here
+   ```
+2. Run:
+   ```bash
+   docker compose up
+   ```
 
-#### Edit the docker-compose.yaml file with your environment variables
-
-```yaml
-services:
-    eliza:
-        environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
-```
-
-#### Run the image
-
-```bash
-docker compose up
-```
-
-### Build the image with Mac M-Series or aarch64
-
-Make sure docker is running.
-
-```bash
-# The --load flag ensures the built image is available locally
-docker buildx build --platform linux/amd64 -t eliza-starter:v1 --load .
-```
-
-#### Edit the docker-compose-image.yaml file with your environment variables
-
-```yaml
-services:
-    eliza:
-        environment:
-            - OPENROUTER_API_KEY=blahdeeblahblahblah
-```
-
-#### Run the image
-
-```bash
-docker compose -f docker-compose-image.yaml up
-```
+### For Mac M-Series or aarch64
+1. Build image:
+   ```bash
+   docker buildx build --platform linux/amd64 -t eliza-starter:v1 --load .
+   ```
+2. Edit docker-compose-image.yaml:
+   ```yaml
+   services:
+     eliza:
+       environment:
+         - OPENROUTER_API_KEY=your-api-key-here
+   ```
+3. Run:
+   ```bash
+   docker compose -f docker-compose-image.yaml up
+   ```

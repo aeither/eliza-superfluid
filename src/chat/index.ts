@@ -11,14 +11,14 @@ rl.on("SIGINT", () => {
   process.exit(0);
 });
 
-async function handleUserInput(input, agentId) {
+async function handleUserInput(input: string, agentId: string) {
   if (input.toLowerCase() === "exit") {
     rl.close();
     process.exit(0);
   }
 
   try {
-    const serverPort = parseInt(settings.SERVER_PORT || "3000");
+    const serverPort = Number.parseInt(settings.SERVER_PORT || "3000");
 
     const response = await fetch(
       `http://localhost:${serverPort}/${agentId}/message`,
@@ -34,13 +34,15 @@ async function handleUserInput(input, agentId) {
     );
 
     const data = await response.json();
-    data.forEach((message) => console.log(`${"Agent"}: ${message.text}`));
+    for (const message of data) {
+      console.log(`${"Agent"}: ${message.text}`);
+    }
   } catch (error) {
     console.error("Error fetching response:", error);
   }
 }
 
-export function startChat(characters) {
+export function startChat(characters: { name: string; }[]) {
   function chat() {
     const agentId = characters[0].name ?? "Agent";
     rl.question("You: ", async (input) => {
