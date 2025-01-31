@@ -1,4 +1,3 @@
-version: '3'
 services:
   eliza:
     command: ["pnpm", "start", "--character=./characters/eliza.character.json"]
