@@ -1,7 +1,11 @@
+import PostgresDatabaseAdapter from "@elizaos/adapter-postgres";
+import type { SqliteDatabaseAdapter } from "@elizaos/adapter-sqlite";
 import { DirectClient } from "@elizaos/client-direct";
 import {
   AgentRuntime,
+  type CacheManager,
   type Character,
+  type DbCacheAdapter,
   elizaLogger,
   settings,
   stringToUuid,
@@ -38,8 +42,8 @@ let nodePlugin: any | undefined;
 
 export function createAgent(
   character: Character,
-  db: any,
-  cache: any,
+  db: PostgresDatabaseAdapter | SqliteDatabaseAdapter,
+  cache: CacheManager<DbCacheAdapter>,
   token: string
 ) {
   elizaLogger.success(
@@ -82,7 +86,9 @@ async function startAgent(character: Character, directClient: DirectClient) {
     }
 
     const db = initializeDatabase(dataDir);
-
+    if (db instanceof PostgresDatabaseAdapter) {
+      await db.testConnection();
+    }
     await db.init();
 
     const cache = initializeDbCache(character, db);

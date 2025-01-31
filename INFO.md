@@ -27,3 +27,9 @@ Fix error: Used disallowed intents. Active The Discord Bot
 Bot -> Privileged Gateway Intents -> MESSAGE CONTENT INTENT
 
 Discord Bot needs to be Tagged.
+
+
+## DB
+
+Defined in database/index
+it is storing local if no postgres url is provided
