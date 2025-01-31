@@ -33,3 +33,7 @@ Discord Bot needs to be Tagged.
 
 Defined in database/index
 it is storing local if no postgres url is provided
+
+**Using Postgres**
+
+Use Docker Image `pgvector/pgvector:pg17` and add `POSTGRES_URL` to .env
