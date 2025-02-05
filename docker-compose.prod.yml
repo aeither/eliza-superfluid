@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   eliza:
-    image: aeither/bebop:latest
+    platform: linux/amd64
+    image: aeither/eliza-superfluid:latest
     command: ["pnpm", "start"]
     stdin_open: true
     tty: true

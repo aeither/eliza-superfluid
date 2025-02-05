@@ -34,11 +34,6 @@ Discord Bot needs to be Tagged.
 Defined in database/index
 it is storing local if no postgres url is provided
 
-**Using Postgres**
-
-Use Docker Image `pgvector/pgvector:pg17` and add `POSTGRES_URL` to .env
-Assign Port and add rule to firewall
-
 ## Deploy
 
 In `docker-compose.yaml` change Port and expose it to firewall
@@ -72,10 +67,13 @@ cd ../bebop-eliza && pnpm install
 
 Railway can build using the `Dockerfile` provided in this repo with `docker-compose.yml`.
 
+**VPS**
+
 VPS specially low on resources. It is better to use CI/CD. Learn more: https://docs.dokploy.com/docs/core/applications/going-production
 - gh workflow `deploy.yml` build and push the Docker image to Docker Hub
 - Use docker image from registry https://registry-1.docker.io
 - set `SERVER_PORT=YOUR_PORT` and `DAEMON_PROCESS=true`
+- Use Docker Image `pgvector/pgvector:pg17` and add `POSTGRES_URL` to .env. Assign Port and add rule to firewall
 
 ## References
 
