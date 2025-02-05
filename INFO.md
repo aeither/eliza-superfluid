@@ -1,4 +1,3 @@
-
 # Troubleshooting
 
 ## Install
@@ -20,14 +19,12 @@ and `pnpm add opusscript`.
 
 First `pnpm start` requires downloading `fast-bge-small-en-v1.5` for embedding to the ./cache folder
 
-
 ## Instructions
 
 Fix error: Used disallowed intents. Active The Discord Bot
 Bot -> Privileged Gateway Intents -> MESSAGE CONTENT INTENT
 
 Discord Bot needs to be Tagged.
-
 
 ## DB
 
@@ -45,7 +42,6 @@ on railway, digital ocean, needs to `DAEMON_PROCESS=true`
 
 `Service → Settings → Source → Root Directory`
 
-
 ## Project folder name can't contain space
 
 node-hid issue when running `pnpm install`
@@ -54,7 +50,8 @@ node-hid issue when running `pnpm install`
 
 Build it with Goat SDK. Import it. Map it to the GOAT Plugin.
 
-Why mono? to avoid 
+Why mono? to avoid
+
 ```bash
 cd ../goat-erc4646
 npm version patch && npm publish
@@ -70,6 +67,7 @@ Railway can build using the `Dockerfile` provided in this repo with `docker-comp
 **VPS**
 
 VPS specially low on resources. It is better to use CI/CD. Learn more: https://docs.dokploy.com/docs/core/applications/going-production
+
 - gh workflow `deploy.yml` build and push the Docker image to Docker Hub
 - Use docker image from registry https://registry-1.docker.io
 - set `SERVER_PORT=YOUR_PORT` and `DAEMON_PROCESS=true`
@@ -89,6 +87,10 @@ https://gist.github.com/theozzz/2c848b857d16ec53a255447002845b57
 
 Copy webhook and use it in Docker Hub:
 https://hub.docker.com/repositories/
+
+## Testing in Discord
+
+Mention the bot in the channel when `shouldRespondOnlyToMentions` is set to true. Don't paste text or the bot will ignore it. Type it.
 
 ## References
 
