@@ -82,6 +82,11 @@ VPS specially low on resources. It is better to use CI/CD. Learn more: https://d
 
 `docker buildx build --platform=linux/arm64 -t your-image:latest .`
 
+## Autodeploy
+
+Copy webhook and use it in Docker Hub:
+https://hub.docker.com/repositories/
+
 ## References
 
 https://github.com/elizaos/eliza
