@@ -12,7 +12,7 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml tsconfig.json ./
 COPY src/ ./src/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 RUN pnpm build
 
 RUN mkdir -p /app/dist && \
