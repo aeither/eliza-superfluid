@@ -11,3 +11,5 @@ db.sqlite
 
 /cache/
 !src/cache/
+
+.DS_Store
