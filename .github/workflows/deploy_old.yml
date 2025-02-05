@@ -1,16 +1,20 @@
-name: Build and Push ARM Docker Image
+name: Build Docker images
 
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch:
+  # push:
+    # branches: ["main"]
 
 jobs:
-  build-and-push:
+  build-and-push-dockerfile-image:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -21,13 +25,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push ARM image
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile
+          file: ./Dockerfile
           push: true
-          tags: aeither/eliza-superfluid2:latest
-          platforms: linux/arm64
+          tags: |
+            aeither/eliza-superfluid2:latest
+          platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max

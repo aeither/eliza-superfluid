@@ -1,7 +1,4 @@
-# Use a multi-stage build to compile for ARM64 while avoiding slow ARM emulation
-
-# Builder Stage – run on amd64 to speed up the build process
-FROM --platform=linux/amd64 node:23.7.0-slim AS builder
+FROM node:23.7.0-slim AS builder
 
 # Install build dependencies
 RUN apt-get update && \
@@ -10,29 +7,21 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Ensure the python command is available
 RUN ln -s /usr/bin/python3 /usr/bin/python
-
 WORKDIR /app
-
-# Copy application source and configuration files
 COPY package.json pnpm-lock.yaml tsconfig.json ./
 COPY src/ ./src/
 
-# Install dependencies and build the application
 RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
-# Prepare built files – adjust permissions and directories as needed
 RUN mkdir -p /app/dist && \
     chown -R node:node /app && \
     chmod -R 755 /app
 
-# Switch to non-root user for the builder stage if needed
 USER node
 
-# Final Stage – use an ARM64 base image so the final image is ARM‑compatible
-FROM arm64v8/node:23.7.0-slim
+FROM node:23.7.0-slim
 
 # Install runtime dependencies
 RUN apt-get update && \
@@ -42,8 +31,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-# Copy files from the builder stage into the final ARM image
 COPY --from=builder /app/package.json /app/
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/src /app/src
