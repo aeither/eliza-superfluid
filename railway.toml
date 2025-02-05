@@ -1,2 +1,2 @@
 [build]
-RAILWAY_DOCKERFILE_PATH = "Dockerfile"
+RAILWAY_DOCKERFILE_PATH = "Dockerfile_Railway"
