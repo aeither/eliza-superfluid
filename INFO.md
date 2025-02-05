@@ -75,6 +75,13 @@ VPS specially low on resources. It is better to use CI/CD. Learn more: https://d
 - set `SERVER_PORT=YOUR_PORT` and `DAEMON_PROCESS=true`
 - Use Docker Image `pgvector/pgvector:pg17` and add `POSTGRES_URL` to .env. Assign Port and add rule to firewall
 
+## Use Multi-Architecture Images
+
+- exec /usr/local/bin/docker-entrypoint.sh: exec format error
+- Usually Architecture Mismatch between amd64 and arm64
+
+`docker buildx build --platform=linux/arm64 -t your-image:latest .`
+
 ## References
 
 https://github.com/elizaos/eliza
