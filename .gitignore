@@ -13,3 +13,6 @@ db.sqlite
 !src/cache/
 
 .DS_Store
+
+character.json
+knowledge.json
