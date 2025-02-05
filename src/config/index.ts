@@ -1,5 +1,5 @@
 
-import { Character, ModelProviderName, settings, validateCharacterConfig } from "@elizaos/core";
+import { type Character, ModelProviderName, settings, validateCharacterConfig } from "@elizaos/core";
 import fs from "fs";
 import path from "path";
 import yargs from "yargs";
@@ -28,9 +28,9 @@ export function parseArguments(): {
 export async function loadCharacters(
   charactersArg: string
 ): Promise<Character[]> {
-  let characterPaths = charactersArg?.split(",").map((filePath) => {
+  const characterPaths = charactersArg?.split(",").map((filePath) => {
     if (path.basename(filePath) === filePath) {
-      filePath = "../characters/" + filePath;
+      filePath = `../characters/${filePath}`;
     }
     return path.resolve(process.cwd(), filePath.trim());
   });
