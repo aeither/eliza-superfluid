@@ -34,10 +34,10 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 WORKDIR /app
 
 # Copy package.json and other configuration files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc turbo.json ./
+COPY package.json pnpm-lock.yaml tsconfig.json ./
 
 # Copy the rest of the application code
-COPY src ./src
+COPY src/ ./src/
 
 # Install dependencies and build the project
 RUN pnpm install && \
