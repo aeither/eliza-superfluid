@@ -31,6 +31,7 @@
 		"better-sqlite3": "11.5.0",
 		"dotenv": "^16.4.7",
 		"fs": "0.0.1-security",
+		"inquirer": "^12.4.1",
 		"llamaindex": "^0.8.31",
 		"net": "1.0.2",
 		"opusscript": "^0.1.1",
