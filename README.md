@@ -3,13 +3,16 @@
 ## Configure Character
 
 ### Edit Default Character
+
 Open `src/character.ts` to modify the default character. Uncomment and edit as needed.
 
 ### Load Custom Characters
+
 - Use `pnpm start --characters="characters/eliza.character.json"`
 - Load multiple character files simultaneously
 
 ### Add Clients
+
 ```typescript
 // In character.ts
 clients: [Clients.TWITTER, Clients.DISCORD];
@@ -21,12 +24,15 @@ clients: [Clients.TWITTER, Clients.DISCORD];
 ## Environment Setup
 
 ### Create .env File
+
 ```bash
 cp .env.example .env
 ```
+
 Fill out the .env file with your specific values.
 
 ### Add Credentials and API Keys
+
 ```plaintext
 DISCORD_APPLICATION_ID="your-discord-app-id"
 DISCORD_API_TOKEN="your-discord-token"
@@ -39,14 +45,17 @@ TWITTER_EMAIL="your-twitter-email"
 ## Installation and Execution
 
 ### Install Dependencies and Start Agent
+
 ```bash
 pnpm i && pnpm start
 ```
+
 Note: Requires Node.js version 22 or higher.
 
 ## Docker Deployment
 
 ### For x86_64 Architecture
+
 1. Edit docker-compose.yaml:
    ```yaml
    services:
@@ -60,6 +69,7 @@ Note: Requires Node.js version 22 or higher.
    ```
 
 ### For Mac M-Series or aarch64
+
 1. Build image:
    ```bash
    docker buildx build --platform linux/amd64 -t eliza-starter:v1 --load .
